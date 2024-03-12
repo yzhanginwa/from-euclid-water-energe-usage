@@ -17,6 +17,7 @@ function load_scripts() {
   source ./hydra-operations/status.sh
   source ./hydra-operations/remote-deploy.sh
   source ./hydra-operations/remote-start.sh
+  source ./hydra-operations/update.sh
 
   source ./cluster/join-cluster.sh
 
@@ -152,6 +153,15 @@ function remote-start() {
   load_scripts
   
   remote_start_metagraph
+}
+
+# @cmd Update Euclid
+# @option --euclid_version  The Euclid version (https://github.com/Constellation-Labs/euclid-development-environment/releases)
+function update() {
+  load_scripts
+  check_if_docker_is_running
+
+  update_euclid
 }
 
 eval "$(argc --argc-eval "$0" "$@")"

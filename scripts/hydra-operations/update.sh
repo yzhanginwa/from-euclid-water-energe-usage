@@ -84,6 +84,7 @@ function check_if_any_container_is_running() {
 }
 
 function update_infra_docker() {
+  cd $INFRA_PATH
   echo "Updating docker folder ..."
   chmod +x docker
   rm -r docker
@@ -94,104 +95,94 @@ function update_infra_docker() {
 
 function update_scripts() {
   echo "Updating scripts ..."
+  cd $ROOT_PATH
   chmod +x scripts
   rm -r scripts
 
-  cp -r euclid-development-environment/scripts .
+  cp -r infra/euclid-development-environment/scripts .
   echo "Updated"
 }
 
 function update_ansible_files() {
+  cd $INFRA_PATH
   echo "Updating ansible files..."
 
   chmod +x ansible/hosts.ansible.yml
   rm -r ansible/hosts.ansible.yml
-  cp euclid-development-environment/infra/ansible/hosts.ansible.yml
+  cp euclid-development-environment/infra/ansible/hosts.ansible.yml . 
 
   chmod +x ansible/playbooks/deploy/configure.ansible.yml
   rm -r ansible/playbooks/deploy/configure.ansible.yml
-  cp euclid-development-environment/infra/ansible/playbooks/deploy/configure.ansible.yml
+  cp euclid-development-environment/infra/ansible/playbooks/deploy/configure.ansible.yml .
 
   chmod +x ansible/playbooks/deploy/deploy.ansible.yml
   rm -r ansible/playbooks/deploy/deploy.ansible.yml
-  cp euclid-development-environment/infra/ansible/playbooks/deploy/deploy.ansible.yml
+  cp euclid-development-environment/infra/ansible/playbooks/deploy/deploy.ansible.yml .
 
   chmod +x ansible/playbooks/start/clean.ansible.yml
   rm -r ansible/playbooks/start/clean.ansible.yml
-  cp euclid-development-environment/infra/ansible/playbooks/start/clean.ansible.yml
+  cp euclid-development-environment/infra/ansible/playbooks/start/clean.ansible.yml .
 
   chmod +x ansible/playbooks/start/start.ansible.yml
   rm -r ansible/playbooks/start/start.ansible.yml
-  cp euclid-development-environment/infra/ansible/playbooks/start/start.ansible.yml
+  cp euclid-development-environment/infra/ansible/playbooks/start/start.ansible.yml .
 
   chmod +x ansible/playbooks/start/currency-l1/cluster.ansible.yml
   rm -r ansible/playbooks/start/currency-l1/cluster.ansible.yml
-  cp euclid-development-environment/infra/ansible/playbooks/start/currency-l1/cluster.ansible.yml
+  cp euclid-development-environment/infra/ansible/playbooks/start/currency-l1/cluster.ansible.yml .
 
   chmod +x ansible/playbooks/start/currency-l1/initial_validator.ansible.yml
   rm -r ansible/playbooks/start/currency-l1/initial_validator.ansible.yml
-  cp euclid-development-environment/infra/ansible/playbooks/start/currency-l1/initial_validator.ansible.yml
+  cp euclid-development-environment/infra/ansible/playbooks/start/currency-l1/initial_validator.ansible.yml .
 
   chmod +x ansible/playbooks/start/currency-l1/validator.ansible.yml
   rm -r ansible/playbooks/start/currency-l1/validator.ansible.yml
-  cp euclid-development-environment/infra/ansible/playbooks/start/currency-l1/validator.ansible.yml
+  cp euclid-development-environment/infra/ansible/playbooks/start/currency-l1/validator.ansible.yml .
 
   chmod +x ansible/playbooks/start/data-l1/cluster.ansible.yml
   rm -r ansible/playbooks/start/data-l1/cluster.ansible.yml
-  cp euclid-development-environment/infra/ansible/playbooks/start/data-l1/cluster.ansible.yml
+  cp euclid-development-environment/infra/ansible/playbooks/start/data-l1/cluster.ansible.yml .
 
   chmod +x ansible/playbooks/start/data-l1/initial_validator.ansible.yml
   rm -r ansible/playbooks/start/data-l1/initial_validator.ansible.yml
-  cp euclid-development-environment/infra/ansible/playbooks/start/data-l1/initial_validator.ansible.yml
+  cp euclid-development-environment/infra/ansible/playbooks/start/data-l1/initial_validator.ansible.yml .
 
   chmod +x ansible/playbooks/start/data-l1/validator.ansible.yml
   rm -r ansible/playbooks/start/data-l1/validator.ansible.yml
-  cp euclid-development-environment/infra/ansible/playbooks/start/data-l1/validator.ansible.yml
+  cp euclid-development-environment/infra/ansible/playbooks/start/data-l1/validator.ansible.yml .
 
   chmod +x ansible/playbooks/start/metagraph-l0/cluster.ansible.yml
   rm -r ansible/playbooks/start/metagraph-l0/cluster.ansible.yml
-  cp euclid-development-environment/infra/ansible/playbooks/start/metagraph-l0/cluster.ansible.yml
+  cp euclid-development-environment/infra/ansible/playbooks/start/metagraph-l0/cluster.ansible.yml .
 
   chmod +x ansible/playbooks/start/metagraph-l0/genesis.ansible.yml
   rm -r ansible/playbooks/start/metagraph-l0/genesis.ansible.yml
-  cp euclid-development-environment/infra/ansible/playbooks/start/metagraph-l0/genesis.ansible.yml
+  cp euclid-development-environment/infra/ansible/playbooks/start/metagraph-l0/genesis.ansible.yml . 
 
   chmod +x ansible/playbooks/start/metagraph-l0/validator.ansible.yml
   rm -r ansible/playbooks/start/metagraph-l0/validator.ansible.yml
-  cp euclid-development-environment/infra/ansible/playbooks/start/metagraph-l0/validator.ansible.yml
+  cp euclid-development-environment/infra/ansible/playbooks/start/metagraph-l0/validator.ansible.yml . 
 
   echo "Updated"
 }
 
-# @cmd Update hydra
-# @option --euclid_version  The Euclid version (https://github.com/Constellation-Labs/euclid-development-environment/releases)
-update() {
+update_euclid() {
   check_if_should_update
   check_if_any_container_is_running
 
-  BASEDIR=$(dirname "$0")
-  cd $BASEDIR
-
-  if [ -d "scripts" ]; then
-    cd scripts/
-  fi
-
-  cd ../infra
+  cd $INFRA_PATH
 
   echo "Starting update ..."
   echo "Getting updated version"
-  git clone --quiet https://github.com/Constellation-Labs/euclid-development-environment.git >/dev/null
+  git clone --quiet https://github.com/Constellation-Labs/euclid-development-environment.git > /dev/null
   cd euclid-development-environment/
-  checkout_version $argc_version
-  cd ..
+  checkout_version $argc_euclid_version
 
   update_infra_docker
   update_scripts
   update_ansible_files
 
-  chmod -R +w ../infra/euclid-development-environment
-  rm -r ../infra/euclid-development-environment
+  chmod -R +w $INFRA_PATH/euclid-development-environment
+  rm -r $INFRA_PATH/euclid-development-environment
   echo "Updating process finished!"
 }
-
-eval "$(argc --argc-eval "$0" "$@")"
