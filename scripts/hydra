@@ -14,6 +14,7 @@ function load_scripts() {
   source ./hydra-operations/start.sh
   source ./hydra-operations/stop.sh
   source ./hydra-operations/destroy.sh
+  source ./hydra-operations/purge.sh
   source ./hydra-operations/status.sh
   source ./hydra-operations/remote-deploy.sh
   source ./hydra-operations/remote-start.sh
@@ -120,7 +121,7 @@ function purge() {
   set_docker_compose
   check_if_docker_is_running
 
-  destroy_containers
+  purge_containers
 }
 
 # @cmd Check the status of the containers
