@@ -69,13 +69,13 @@ USAGE: hydra <COMMAND>
 COMMANDS:
   install           Removes the remote git
   build             Build all the containers
-  start_genesis     Start containers from the genesis snapshot (erasing history)
-  start_rollback    Start containers from the last snapshot (maintaining history)
+  start-genesis     Start containers from the genesis snapshot (erasing history)
+  start-rollback    Start containers from the last snapshot (maintaining history)
   stop              Stop all the containers
   destroy           Destroy all the containers
   status            Check the status of the containers
-  remote_deploy     Remotely deploy to cloud instances using Ansible
-  remote_start      Remotely start the metagraph on cloud instances using Ansible
+  remote-deploy     Remotely deploy to cloud instances using Ansible
+  remote-start      Remotely start the metagraph on cloud instances using Ansible
 ```
 TIP: You can use the same `-h` in each command listed above to see the accepted parameters
 
