@@ -107,61 +107,71 @@ function update_ansible_files() {
   cd $INFRA_PATH
   echo "Updating ansible files..."
 
-  chmod +x ansible/hosts.ansible.yml
-  rm -r ansible/hosts.ansible.yml
-  cp euclid-development-environment/infra/ansible/hosts.ansible.yml . 
+  ANSIBLE_DIRECTORY="$INFRA_PATH/ansible"
 
-  chmod +x ansible/playbooks/deploy/configure.ansible.yml
-  rm -r ansible/playbooks/deploy/configure.ansible.yml
-  cp euclid-development-environment/infra/ansible/playbooks/deploy/configure.ansible.yml .
+  if [ -d "$DIRECTORY" ]; then
+    chmod +x ansible/hosts.ansible.yml
+    rm -r ansible/hosts.ansible.yml
+    cp euclid-development-environment/infra/ansible/hosts.ansible.yml .
 
-  chmod +x ansible/playbooks/deploy/deploy.ansible.yml
-  rm -r ansible/playbooks/deploy/deploy.ansible.yml
-  cp euclid-development-environment/infra/ansible/playbooks/deploy/deploy.ansible.yml .
+    chmod +x ansible/playbooks/deploy/configure.ansible.yml
+    rm -r ansible/playbooks/deploy/configure.ansible.yml
+    cp euclid-development-environment/infra/ansible/playbooks/deploy/configure.ansible.yml .
 
-  chmod +x ansible/playbooks/start/clean.ansible.yml
-  rm -r ansible/playbooks/start/clean.ansible.yml
-  cp euclid-development-environment/infra/ansible/playbooks/start/clean.ansible.yml .
+    chmod +x ansible/playbooks/deploy/deploy.ansible.yml
+    rm -r ansible/playbooks/deploy/deploy.ansible.yml
+    cp euclid-development-environment/infra/ansible/playbooks/deploy/deploy.ansible.yml .
 
-  chmod +x ansible/playbooks/start/start.ansible.yml
-  rm -r ansible/playbooks/start/start.ansible.yml
-  cp euclid-development-environment/infra/ansible/playbooks/start/start.ansible.yml .
+    chmod +x ansible/playbooks/start/clean.ansible.yml
+    rm -r ansible/playbooks/start/clean.ansible.yml
+    cp euclid-development-environment/infra/ansible/playbooks/start/clean.ansible.yml .
 
-  chmod +x ansible/playbooks/start/currency-l1/cluster.ansible.yml
-  rm -r ansible/playbooks/start/currency-l1/cluster.ansible.yml
-  cp euclid-development-environment/infra/ansible/playbooks/start/currency-l1/cluster.ansible.yml .
+    chmod +x ansible/playbooks/start/start.ansible.yml
+    rm -r ansible/playbooks/start/start.ansible.yml
+    cp euclid-development-environment/infra/ansible/playbooks/start/start.ansible.yml .
 
-  chmod +x ansible/playbooks/start/currency-l1/initial_validator.ansible.yml
-  rm -r ansible/playbooks/start/currency-l1/initial_validator.ansible.yml
-  cp euclid-development-environment/infra/ansible/playbooks/start/currency-l1/initial_validator.ansible.yml .
+    chmod +x ansible/playbooks/start/currency-l1/cluster.ansible.yml
+    rm -r ansible/playbooks/start/currency-l1/cluster.ansible.yml
+    cp euclid-development-environment/infra/ansible/playbooks/start/currency-l1/cluster.ansible.yml .
 
-  chmod +x ansible/playbooks/start/currency-l1/validator.ansible.yml
-  rm -r ansible/playbooks/start/currency-l1/validator.ansible.yml
-  cp euclid-development-environment/infra/ansible/playbooks/start/currency-l1/validator.ansible.yml .
+    chmod +x ansible/playbooks/start/currency-l1/initial_validator.ansible.yml
+    rm -r ansible/playbooks/start/currency-l1/initial_validator.ansible.yml
+    cp euclid-development-environment/infra/ansible/playbooks/start/currency-l1/initial_validator.ansible.yml .
 
-  chmod +x ansible/playbooks/start/data-l1/cluster.ansible.yml
-  rm -r ansible/playbooks/start/data-l1/cluster.ansible.yml
-  cp euclid-development-environment/infra/ansible/playbooks/start/data-l1/cluster.ansible.yml .
+    chmod +x ansible/playbooks/start/currency-l1/validator.ansible.yml
+    rm -r ansible/playbooks/start/currency-l1/validator.ansible.yml
+    cp euclid-development-environment/infra/ansible/playbooks/start/currency-l1/validator.ansible.yml .
 
-  chmod +x ansible/playbooks/start/data-l1/initial_validator.ansible.yml
-  rm -r ansible/playbooks/start/data-l1/initial_validator.ansible.yml
-  cp euclid-development-environment/infra/ansible/playbooks/start/data-l1/initial_validator.ansible.yml .
+    chmod +x ansible/playbooks/start/data-l1/cluster.ansible.yml
+    rm -r ansible/playbooks/start/data-l1/cluster.ansible.yml
+    cp euclid-development-environment/infra/ansible/playbooks/start/data-l1/cluster.ansible.yml .
 
-  chmod +x ansible/playbooks/start/data-l1/validator.ansible.yml
-  rm -r ansible/playbooks/start/data-l1/validator.ansible.yml
-  cp euclid-development-environment/infra/ansible/playbooks/start/data-l1/validator.ansible.yml .
+    chmod +x ansible/playbooks/start/data-l1/initial_validator.ansible.yml
+    rm -r ansible/playbooks/start/data-l1/initial_validator.ansible.yml
+    cp euclid-development-environment/infra/ansible/playbooks/start/data-l1/initial_validator.ansible.yml .
 
-  chmod +x ansible/playbooks/start/metagraph-l0/cluster.ansible.yml
-  rm -r ansible/playbooks/start/metagraph-l0/cluster.ansible.yml
-  cp euclid-development-environment/infra/ansible/playbooks/start/metagraph-l0/cluster.ansible.yml .
+    chmod +x ansible/playbooks/start/data-l1/validator.ansible.yml
+    rm -r ansible/playbooks/start/data-l1/validator.ansible.yml
+    cp euclid-development-environment/infra/ansible/playbooks/start/data-l1/validator.ansible.yml .
 
-  chmod +x ansible/playbooks/start/metagraph-l0/genesis.ansible.yml
-  rm -r ansible/playbooks/start/metagraph-l0/genesis.ansible.yml
-  cp euclid-development-environment/infra/ansible/playbooks/start/metagraph-l0/genesis.ansible.yml . 
+    chmod +x ansible/playbooks/start/metagraph-l0/cluster.ansible.yml
+    rm -r ansible/playbooks/start/metagraph-l0/cluster.ansible.yml
+    cp euclid-development-environment/infra/ansible/playbooks/start/metagraph-l0/cluster.ansible.yml .
 
-  chmod +x ansible/playbooks/start/metagraph-l0/validator.ansible.yml
-  rm -r ansible/playbooks/start/metagraph-l0/validator.ansible.yml
-  cp euclid-development-environment/infra/ansible/playbooks/start/metagraph-l0/validator.ansible.yml . 
+    chmod +x ansible/playbooks/start/metagraph-l0/genesis.ansible.yml
+    rm -r ansible/playbooks/start/metagraph-l0/genesis.ansible.yml
+    cp euclid-development-environment/infra/ansible/playbooks/start/metagraph-l0/genesis.ansible.yml .
+
+    chmod +x ansible/playbooks/start/metagraph-l0/validator.ansible.yml
+    rm -r ansible/playbooks/start/metagraph-l0/validator.ansible.yml
+    cp euclid-development-environment/infra/ansible/playbooks/start/metagraph-l0/validator.ansible.yml .
+
+  else
+    chmod +x ansible
+    rm -r ansible
+
+    cp -r euclid-development-environment/infra/ansible .
+  fi
 
   echo "Updated"
 }
@@ -174,7 +184,7 @@ update_euclid() {
 
   echo "Starting update ..."
   echo "Getting updated version"
-  git clone --quiet https://github.com/Constellation-Labs/euclid-development-environment.git > /dev/null
+  git clone --quiet https://github.com/Constellation-Labs/euclid-development-environment.git >/dev/null
   cd euclid-development-environment/
   checkout_version $argc_euclid_version
 
