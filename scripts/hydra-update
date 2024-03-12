@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 
-check_if_container_is_running() {
+function check_if_container_is_running() {
   if docker ps --format '{{.Names}}' | grep "$1"; then
     echo You should stop the container $1 before update
     exit 1
   fi
 }
 
-checkout_version() {
+function checkout_version() {
   if [ ! -z "$(git ls-remote origin $1)" ]; then
     git pull &>/dev/null
     git checkout $1 &>/dev/null
@@ -18,9 +18,46 @@ checkout_version() {
   fi
 }
 
-# @cmd Update hydra
-# @option --version!          Version
-update() {
+function check_if_should_update() {
+  echo "This operation will update the following files/directories:"
+  echo "Directory - infra/docker"
+  echo "Directory - scripts"
+  echo "File - infra/ansible/hosts.ansible.yml"
+  echo "File - infra/ansible/playbooks/deploy/configure.ansible.yml"
+  echo "File - infra/ansible/playbooks/deploy/deploy.ansible.yml"
+  echo "File - infra/ansible/playbooks/start/clean.ansible.yml"
+  echo "File - infra/ansible/playbooks/start/start.ansible.yml"
+  echo "File - infra/ansible/playbooks/start/currency-l1/cluster.ansible.yml"
+  echo "File - infra/ansible/playbooks/start/currency-l1/initial_validator.ansible.yml"
+  echo "File - infra/ansible/playbooks/start/currency-l1/validator.ansible.yml"
+  echo "File - infra/ansible/playbooks/start/data-l1/cluster.ansible.yml"
+  echo "File - infra/ansible/playbooks/start/data-l1/initial_validator.ansible.yml"
+  echo "File - infra/ansible/playbooks/start/data-l1/validator.ansible.yml"
+  echo "File - infra/ansible/playbooks/start/metagraph-l0/cluster.ansible.yml"
+  echo "File - infra/ansible/playbooks/start/metagraph-l0/genesis.ansible.yml"
+  echo "File - infra/ansible/playbooks/start/metagraph-l0/validator.ansible.yml"
+
+  default="N"
+  echo "Do you want to proceed? (Y/N, default: $default): "
+  read -r input
+
+  if [ -z "$input" ]; then
+    input="$default"
+  fi
+
+  input=$(echo "$input" | tr '[:lower:]' '[:upper:]')
+
+  if [[ "$input" == "N" ]]; then
+    exit 0
+  fi
+
+  if [[ "$input" != "N" && "$input" != "Y" ]]; then
+    echo "Invalid input. Please enter 'Y' or 'N'."
+    exit 0
+  fi
+}
+
+function check_if_any_container_is_running() {
   echo "You should stop all containers before update"
 
   echo "Checking if any container is running ..."
@@ -33,19 +70,104 @@ update() {
   check_if_container_is_running metagraph-l0-1
   check_if_container_is_running metagraph-l0-2
   check_if_container_is_running metagraph-l0-3
-  
-  check_if_container_is_running metagraph-l1-currency-1
-  check_if_container_is_running metagraph-l1-currency-2
-  check_if_container_is_running metagraph-l1-currency-3
 
-  check_if_container_is_running metagraph-l1-data-1
-  check_if_container_is_running metagraph-l1-data-2
-  check_if_container_is_running metagraph-l1-data-3
-  
+  check_if_container_is_running currency-l1-1
+  check_if_container_is_running currency-l1-2
+  check_if_container_is_running currency-l1-3
+
+  check_if_container_is_running data-l1-1
+  check_if_container_is_running data-l1-2
+  check_if_container_is_running data-l1-3
+
   check_if_container_is_running grafana
   check_if_container_is_running prometheus
+}
 
-  echo "Starting update ..."
+function update_infra_docker() {
+  echo "Updating docker folder ..."
+  chmod +x docker
+  rm -r docker
+
+  cp -r euclid-development-environment/infra/docker .
+  echo "Updated"
+}
+
+function update_scripts() {
+  echo "Updating scripts ..."
+  chmod +x scripts
+  rm -r scripts
+
+  cp -r euclid-development-environment/scripts .
+  echo "Updated"
+}
+
+function update_ansible_files() {
+  echo "Updating ansible files..."
+
+  chmod +x ansible/hosts.ansible.yml
+  rm -r ansible/hosts.ansible.yml
+  cp euclid-development-environment/infra/ansible/hosts.ansible.yml
+
+  chmod +x ansible/playbooks/deploy/configure.ansible.yml
+  rm -r ansible/playbooks/deploy/configure.ansible.yml
+  cp euclid-development-environment/infra/ansible/playbooks/deploy/configure.ansible.yml
+
+  chmod +x ansible/playbooks/deploy/deploy.ansible.yml
+  rm -r ansible/playbooks/deploy/deploy.ansible.yml
+  cp euclid-development-environment/infra/ansible/playbooks/deploy/deploy.ansible.yml
+
+  chmod +x ansible/playbooks/start/clean.ansible.yml
+  rm -r ansible/playbooks/start/clean.ansible.yml
+  cp euclid-development-environment/infra/ansible/playbooks/start/clean.ansible.yml
+
+  chmod +x ansible/playbooks/start/start.ansible.yml
+  rm -r ansible/playbooks/start/start.ansible.yml
+  cp euclid-development-environment/infra/ansible/playbooks/start/start.ansible.yml
+
+  chmod +x ansible/playbooks/start/currency-l1/cluster.ansible.yml
+  rm -r ansible/playbooks/start/currency-l1/cluster.ansible.yml
+  cp euclid-development-environment/infra/ansible/playbooks/start/currency-l1/cluster.ansible.yml
+
+  chmod +x ansible/playbooks/start/currency-l1/initial_validator.ansible.yml
+  rm -r ansible/playbooks/start/currency-l1/initial_validator.ansible.yml
+  cp euclid-development-environment/infra/ansible/playbooks/start/currency-l1/initial_validator.ansible.yml
+
+  chmod +x ansible/playbooks/start/currency-l1/validator.ansible.yml
+  rm -r ansible/playbooks/start/currency-l1/validator.ansible.yml
+  cp euclid-development-environment/infra/ansible/playbooks/start/currency-l1/validator.ansible.yml
+
+  chmod +x ansible/playbooks/start/data-l1/cluster.ansible.yml
+  rm -r ansible/playbooks/start/data-l1/cluster.ansible.yml
+  cp euclid-development-environment/infra/ansible/playbooks/start/data-l1/cluster.ansible.yml
+
+  chmod +x ansible/playbooks/start/data-l1/initial_validator.ansible.yml
+  rm -r ansible/playbooks/start/data-l1/initial_validator.ansible.yml
+  cp euclid-development-environment/infra/ansible/playbooks/start/data-l1/initial_validator.ansible.yml
+
+  chmod +x ansible/playbooks/start/data-l1/validator.ansible.yml
+  rm -r ansible/playbooks/start/data-l1/validator.ansible.yml
+  cp euclid-development-environment/infra/ansible/playbooks/start/data-l1/validator.ansible.yml
+
+  chmod +x ansible/playbooks/start/metagraph-l0/cluster.ansible.yml
+  rm -r ansible/playbooks/start/metagraph-l0/cluster.ansible.yml
+  cp euclid-development-environment/infra/ansible/playbooks/start/metagraph-l0/cluster.ansible.yml
+
+  chmod +x ansible/playbooks/start/metagraph-l0/genesis.ansible.yml
+  rm -r ansible/playbooks/start/metagraph-l0/genesis.ansible.yml
+  cp euclid-development-environment/infra/ansible/playbooks/start/metagraph-l0/genesis.ansible.yml
+
+  chmod +x ansible/playbooks/start/metagraph-l0/validator.ansible.yml
+  rm -r ansible/playbooks/start/metagraph-l0/validator.ansible.yml
+  cp euclid-development-environment/infra/ansible/playbooks/start/metagraph-l0/validator.ansible.yml
+
+  echo "Updated"
+}
+
+# @cmd Update hydra
+# @option --euclid_version  The Euclid version (https://github.com/Constellation-Labs/euclid-development-environment/releases)
+update() {
+  check_if_should_update
+  check_if_any_container_is_running
 
   BASEDIR=$(dirname "$0")
   cd $BASEDIR
@@ -56,27 +178,16 @@ update() {
 
   cd ../infra
 
+  echo "Starting update ..."
   echo "Getting updated version"
-  git clone --quiet https://github.com/Constellation-Labs/euclid-development-environment.git > /dev/null
+  git clone --quiet https://github.com/Constellation-Labs/euclid-development-environment.git >/dev/null
   cd euclid-development-environment/
   checkout_version $argc_version
   cd ..
 
-  echo "Updating docker folder ..."
-  chmod +x docker
-  rm -r docker
-
-  cp -r euclid-development-environment/infra/docker .
-  echo "Updated"
-
-  echo "Updating hydra script ..."
-  cd ../scripts
-
-  chmod +x hydra
-  rm hydra
-
-  cp -r ../infra/euclid-development-environment/scripts/hydra .
-  echo "Updated"
+  update_infra_docker
+  update_scripts
+  update_ansible_files
 
   chmod -R +w ../infra/euclid-development-environment
   rm -r ../infra/euclid-development-environment

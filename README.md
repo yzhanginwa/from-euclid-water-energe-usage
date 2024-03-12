@@ -23,12 +23,6 @@ With the euclid-development-environment cloned, you'll see the following structu
   - ansible
   - docker
 - scripts
-  - custom-template.sh
-  - docker.sh
-  - hydra
-  - hydra-update
-  - join-cluster.sh
-  - utils.sh
 - source
   - metagraph-l0
     - genesis
@@ -53,7 +47,7 @@ Here is the home of the local codebase, this directories will be filled in ways 
 
 Example: let's say that you'll build the container `metagraph-l0` (it will be explained better below, don't worry), on the directory `source/metagraph-l0` will be created one folder with the local codebase of the `metagraph-l0` node
 
-The example above applies to the other containers: `metagraph-l1-currency`, `dag-l1`, `global-l0`
+The example above applies to the other containers: `currency-l1`, `dag-l1`, `global-l0`
 
 Inside the source folder, we also have the sub-directory `p12-files`. In this directory, you can provide the custom `.p12` files. This directory already comes with some examples, but they can be overwritten/removes to your own files.
 
