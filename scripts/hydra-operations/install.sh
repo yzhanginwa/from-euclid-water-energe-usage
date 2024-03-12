@@ -12,10 +12,10 @@ function install_project() {
   chmod -R a+rwx $INFRA_PATH/docker/monitoring/prometheus/
 
   cd $SOURCE_PATH
-  if [ -d ".git" ]; then
-    chmod -R +w .git
-    rm -r .git
-  fi
+  # if [ -d ".git" ]; then
+  #   chmod -R +w .git
+  #   rm -r .git
+  # fi
 
   echo_green "Installed"
 }
