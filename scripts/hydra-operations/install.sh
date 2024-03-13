@@ -11,11 +11,11 @@ function install_project() {
   chmod -R a+rwx $INFRA_PATH/docker/monitoring/grafana/datasources/
   chmod -R a+rwx $INFRA_PATH/docker/monitoring/prometheus/
 
-  cd $SOURCE_PATH
-  # if [ -d ".git" ]; then
-  #   chmod -R +w .git
-  #   rm -r .git
-  # fi
+  cd $ROOT_PATH
+  if [ -d ".git" ]; then
+    chmod -R +w .git
+    rm -r .git
+  fi
 
   echo_green "Installed"
 }

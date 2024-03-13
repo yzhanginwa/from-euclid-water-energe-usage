@@ -34,7 +34,13 @@ function install_template() {
 
   echo_white "Updating euclid.json project_name"
   contents="$(jq --arg PROJECT_NAME "$argc_name" '.project_name = $PROJECT_NAME' $ROOT_PATH/euclid.json)" &&
-    echo -E "${contents}" > $ROOT_PATH/euclid.json
+    echo -E "${contents}" >$ROOT_PATH/euclid.json
 
   rm -r -f $INFRA_PATH/$repo_name
+
+  cd $ROOT_PATH
+  if [ -d ".git" ]; then
+    chmod -R +w .git
+    rm -r .git
+  fi
 }
