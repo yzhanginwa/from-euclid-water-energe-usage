@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 function build_containers() {
+  check_if_tessellation_version_starts_with_v
   if [[ -z "$GITHUB_TOKEN" ]]; then
     echo_red "You should provide the GITHUB_TOKEN on euclid.json file"
     exit 1
@@ -12,7 +13,6 @@ function build_containers() {
   check_if_project_directory_exists
   create_docker_custom_network
 
-  check_if_tessellation_needs_to_be_rebuild
 
   if [[ -z "$(docker images -q metagraph-base-image-${TESSELLATION_VERSION})" || ! -z "$argc_rebuild_tessellation" ]]; then
     echo

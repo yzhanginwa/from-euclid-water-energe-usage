@@ -67,12 +67,9 @@ function check_network() {
     esac
 }
 
-function check_if_tessellation_needs_to_be_rebuild() {
-    PROJECT_TESSELLATION_VERSION=$(sed -n 's/.*val tessellation = "\(.*\)".*/\1/p' $SOURCE_PATH/project/$PROJECT_NAME/project/Dependencies.scala)
-    echo_white "Project tessellation version: $PROJECT_TESSELLATION_VERSION"
-    echo_white "Tessellation version provided on euclid.json: $TESSELLATION_VERSION"
-    if [[ "$PROJECT_TESSELLATION_VERSION" != "$TESSELLATION_VERSION" ]]; then
-        echo_red "Your custom project contains a different version of tessellation than provided on $ROOT_PATH/euclid.json, please rebuild tessellation on build with the instruction hydra build --rebuild_tessellation"
+function check_if_tessellation_version_starts_with_v() {
+    if [[ $TESSELLATION_VERSION =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+        echo_red "euclid.json tessellation_version incorrectly includes a “v” prefix. Please remove this prefix and try again."
         exit 1
     fi
 }

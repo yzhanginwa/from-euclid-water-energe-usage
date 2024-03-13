@@ -36,6 +36,11 @@ function install_template() {
   contents="$(jq --arg PROJECT_NAME "$argc_name" '.project_name = $PROJECT_NAME' $ROOT_PATH/euclid.json)" &&
     echo -E "${contents}" >$ROOT_PATH/euclid.json
 
+  echo_white "Updating euclid.json tessellation_version"
+  project_tessellation_version=$(grep "val tessellation =" $SOURCE_PATH/project/$argc_name/project/Dependencies.scala | awk -F '"' '{print $2}') 
+  contents="$(jq --arg PROJECT_TESSELLATION_VERSION "$project_tessellation_version" '.tessellation_version = $PROJECT_TESSELLATION_VERSION' $ROOT_PATH/euclid.json)" &&
+    echo -E "${contents}" >$ROOT_PATH/euclid.json
+
   rm -r -f $INFRA_PATH/$repo_name
 
   cd $ROOT_PATH
