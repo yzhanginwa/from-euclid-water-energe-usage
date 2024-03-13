@@ -188,7 +188,7 @@ function build_containers() {
     echo_green "Metagraph L0 image built"
   fi
 
-  if [[ " ${DOCKER_CONTAINERS[*]} " =~ "currency-l1" ]]; then
+  if [[ " ${DOCKER_CONTAINERS[*]} " =~ "currency-l1" ]] || [[ " ${DOCKER_CONTAINERS[*]} " =~ "metagraph-l1-currency" ]]; then
     echo
     echo
     echo_title "currency-l1"
@@ -229,7 +229,7 @@ function build_containers() {
     echo_green "Metagraph L1 Currency image built"
   fi
 
-  if [[ " ${DOCKER_CONTAINERS[*]} " =~ "data-l1" ]]; then
+  if [[ " ${DOCKER_CONTAINERS[*]} " =~ "data-l1" ]] || [[ " ${DOCKER_CONTAINERS[*]} " =~ "metagraph-l1-data" ]]; then
     echo
     echo
     echo_title "data-l1"

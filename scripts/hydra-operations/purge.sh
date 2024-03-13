@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 
 function destroy_images() {
-  if [[ " ${DOCKER_CONTAINERS[*]} " =~ "data-l1" ]]; then
+  if [[ " ${DOCKER_CONTAINERS[*]} " =~ "data-l1" ]] || [[ " ${DOCKER_CONTAINERS[*]} " =~ "metagraph-l1-data" ]]; then
     docker rmi data-l1-initial-validator
     docker rmi data-l1-validator-node-2
     docker rmi data-l1-validator-node-3
   fi
 
-  if [[ " ${DOCKER_CONTAINERS[*]} " =~ "currency-l1" ]]; then
+  if [[ " ${DOCKER_CONTAINERS[*]} " =~ "currency-l1" ]] || [[ " ${DOCKER_CONTAINERS[*]} " =~ "metagraph-l1-currency" ]]; then
     docker rmi currency-l1-initial-validator
     docker rmi currency-l1-validator-node-2
     docker rmi currency-l1-validator-node-3

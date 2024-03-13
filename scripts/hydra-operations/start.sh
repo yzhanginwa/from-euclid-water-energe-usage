@@ -95,7 +95,7 @@ function start_containers() {
         metagraph_l0_3_url="http://localhost:9600/cluster/info"
     fi
 
-    if [[ " ${DOCKER_CONTAINERS[*]} " =~ "currency-l1" ]]; then
+    if [[ " ${DOCKER_CONTAINERS[*]} " =~ "currency-l1" ]] || [[ " ${DOCKER_CONTAINERS[*]} " =~ "metagraph-l1-currency" ]]; then
         if [[ -z "$METAGRAPH_ID" ]]; then
             echo_red "metagraph_id not found on euclid.json file, please fill this parameter or run metagraph-l0"
             exit 1
@@ -108,7 +108,7 @@ function start_containers() {
         metagraph_l1_currency_3_url="http://localhost:9900/cluster/info"
     fi
 
-    if [[ " ${DOCKER_CONTAINERS[*]} " =~ "data-l1" ]]; then
+    if [[ " ${DOCKER_CONTAINERS[*]} " =~ "data-l1" ]] || [[ " ${DOCKER_CONTAINERS[*]} " =~ "metagraph-l1-data" ]]; then
         if [[ -z "$METAGRAPH_ID" ]]; then
             echo_red "metagraph_id not found on euclid.json file, please fill this parameter or run metagraph-l0"
             exit 1

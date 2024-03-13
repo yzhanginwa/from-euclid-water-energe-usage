@@ -51,9 +51,16 @@ function check_if_images_are_built() {
             exit 1
         fi
     fi
-    if [[ " ${DOCKER_CONTAINERS[*]} " =~ "currency-l1" ]]; then
+    if [[ " ${DOCKER_CONTAINERS[*]} " =~ "currency-l1" ]] || [[ " ${DOCKER_CONTAINERS[*]} " =~ "metagraph-l1-currency" ]]; then
         if ! docker inspect --type=image currency-l1-initial-validator &>/dev/null; then
             echo_red "You need to build the Currency L1 first"
+            exit 1
+        fi
+    fi
+
+    if [[ " ${DOCKER_CONTAINERS[*]} " =~ "data-l1" ]] || [[ " ${DOCKER_CONTAINERS[*]} " =~ "metagraph-l1-data" ]]; then
+        if ! docker inspect --type=image data-l1-initial-validator &>/dev/null; then
+            echo_red "You need to build the Data L1 first"
             exit 1
         fi
     fi

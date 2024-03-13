@@ -14,11 +14,11 @@ function stop_container() {
 function stop_containers() {
   echo_white "Stopping containers ..."
 
-  if [[ " ${DOCKER_CONTAINERS[*]} " =~ "data-l1" ]]; then
+  if [[ " ${DOCKER_CONTAINERS[*]} " =~ "data-l1" ]] || [[ " ${DOCKER_CONTAINERS[*]} " =~ "metagraph-l1-data" ]]; then
     stop_container data-l1 "DATA-L1"
   fi
 
-  if [[ " ${DOCKER_CONTAINERS[*]} " =~ "currency-l1" ]]; then
+  if [[ " ${DOCKER_CONTAINERS[*]} " =~ "currency-l1" ]] || [[ " ${DOCKER_CONTAINERS[*]} " =~ "metagraph-l1-currency" ]]; then
     stop_container currency-l1 "CURRENCY-L1"
   fi
 

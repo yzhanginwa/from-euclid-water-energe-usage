@@ -20,12 +20,12 @@ function destroy_containers() {
         echo_green "Removed!"
     fi
 
-    if [[ " ${DOCKER_CONTAINERS[*]} " =~ "data-l1" ]]; then
+    if [[ " ${DOCKER_CONTAINERS[*]} " =~ "data-l1" ]] || [[ " ${DOCKER_CONTAINERS[*]} " =~ "metagraph-l1-data" ]]; then
         destroy_container data-l1 "DATA-L1"
         rm -f infra/docker/shared/jars/data-l1.jar
     fi
 
-    if [[ " ${DOCKER_CONTAINERS[*]} " =~ "currency-l1" ]]; then
+    if [[ " ${DOCKER_CONTAINERS[*]} " =~ "currency-l1" ]] || [[ " ${DOCKER_CONTAINERS[*]} " =~ "metagraph-l1-currency" ]]; then
         destroy_container currency-l1 "CURRENCY-L1"
         rm -f infra/docker/shared/jars/currency-l1.jar
     fi

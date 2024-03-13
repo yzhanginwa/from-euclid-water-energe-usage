@@ -5,13 +5,13 @@ function remote_deploy_metagraph() {
 
   echo_yellow "Deploying on remote hosts"
   echo_white ""
-  if [[ " ${DOCKER_CONTAINERS[@]} " =~ "currency-l1" ]]; then
+  if [[ " ${DOCKER_CONTAINERS[*]} " =~ "currency-l1" ]] || [[ " ${DOCKER_CONTAINERS[*]} " =~ "metagraph-l1-currency" ]]; then
     deploy_cl1=true
   else
     deploy_cl1=false
   fi
 
-  if [[ " ${DOCKER_CONTAINERS[@]} " =~ "data-l1" ]]; then
+  if [[ " ${DOCKER_CONTAINERS[*]} " =~ "data-l1" ]] || [[ " ${DOCKER_CONTAINERS[*]} " =~ "metagraph-l1-data" ]]; then
     deploy_dl1=true
   else
     deploy_dl1=false
