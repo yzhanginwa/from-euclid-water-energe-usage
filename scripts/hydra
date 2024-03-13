@@ -58,6 +58,8 @@ function install() {
   load_scripts
 
   install_project
+
+  exit 0
 }
 
 # @cmd Installs a project from templates
@@ -78,6 +80,8 @@ function install-template() {
   fi
 
   install_template
+
+  exit 0
 }
 
 # @cmd Build containers
@@ -94,6 +98,8 @@ function build() {
   check_if_docker_is_running
 
   build_containers
+
+  exit 0
 }
 
 # @cmd Start containers from the genesis snapshot (erasing history)
@@ -109,6 +115,8 @@ function start-genesis() {
 
   export FORCE_ROLLBACK=false
   start_containers false
+
+  exit 0
 }
 
 # @cmd Start containers from the last snapshot (maintaining history)
@@ -124,6 +132,8 @@ function start-rollback() {
 
   export FORCE_ROLLBACK=true
   start_containers true
+
+  exit 0
 }
 
 # @cmd Stop containers
@@ -139,6 +149,8 @@ function stop() {
   check_if_docker_is_running
 
   stop_containers
+
+  exit 0
 }
 
 # @cmd Destroy containers
@@ -156,6 +168,8 @@ function destroy() {
   check_if_docker_is_running
 
   destroy_containers
+
+  exit 0
 }
 
 # @cmd Destroy containers and images
@@ -173,6 +187,8 @@ function purge() {
   check_if_docker_is_running
 
   purge_containers
+
+  exit 0
 }
 
 # @cmd Check the status of the containers
@@ -187,6 +203,8 @@ function status() {
   check_if_docker_is_running
 
   status_containers
+
+  exit 0
 }
 
 # @cmd Remotely deploy to cloud instances using Ansible
@@ -200,6 +218,8 @@ function remote-deploy() {
   load_scripts
 
   remote_deploy_metagraph
+  
+  exit 0
 }
 
 # @cmd Remotely start the metagraph on cloud instances using Ansible
@@ -214,6 +234,8 @@ function remote-start() {
   load_scripts
 
   remote_start_metagraph
+
+  exit 0
 }
 
 # @cmd Update Euclid
@@ -221,6 +243,8 @@ function remote-start() {
 function update() {
   build_paths
   update_euclid
+
+  exit 0
 }
 
 # The functions below are made for backward compatibility, they will be moved to scripts/hydra-operations/update in the next releases
