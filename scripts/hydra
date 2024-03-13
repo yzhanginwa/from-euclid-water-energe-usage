@@ -217,7 +217,7 @@ function remote-start() {
 }
 
 # @cmd Update Euclid
-# @option --version  The Euclid version (https://github.com/Constellation-Labs/euclid-development-environment/releases)
+# @option --version!  The Euclid version (https://github.com/Constellation-Labs/euclid-development-environment/releases)
 function update() {
   build_paths
   update_euclid
