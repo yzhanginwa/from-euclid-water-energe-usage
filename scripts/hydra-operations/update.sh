@@ -184,7 +184,7 @@ update_euclid() {
 
   echo "Starting update ..."
   echo "Getting updated version"
-  git clone --quiet https://github.com/Constellation-Labs/euclid-development-environment.git >/dev/null
+  git clone --quiet https://github.com/Constellation-Labs/euclid-development-environment.git > /dev/null
   cd euclid-development-environment/
   checkout_version $argc_euclid_version
 
