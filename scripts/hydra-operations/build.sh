@@ -13,7 +13,7 @@ function build_containers() {
   check_if_project_directory_exists
   create_docker_custom_network
 
-  check_if_tessellation_needs_to_be_rebuild
+  check_if_tessellation_version_of_project_matches_euclid_json
 
   if [[ -z "$(docker images -q metagraph-base-image-${TESSELLATION_VERSION})" || ! -z "$argc_rebuild_tessellation" ]]; then
     echo
