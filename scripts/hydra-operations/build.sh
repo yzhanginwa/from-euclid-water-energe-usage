@@ -13,6 +13,7 @@ function build_containers() {
   check_if_project_directory_exists
   create_docker_custom_network
 
+  check_if_tessellation_needs_to_be_rebuild
 
   if [[ -z "$(docker images -q metagraph-base-image-${TESSELLATION_VERSION})" || ! -z "$argc_rebuild_tessellation" ]]; then
     echo
@@ -292,8 +293,8 @@ function build_containers() {
 
   echo_white "Cleaning up dangling docker images"
   docker image prune -f
-  
+
   echo_yellow "Project $PROJECT_NAME built"
-  
+
   exit
 }
