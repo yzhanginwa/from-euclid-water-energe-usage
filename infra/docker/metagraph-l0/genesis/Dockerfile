@@ -20,7 +20,7 @@ ENV CL_PASSWORD=${P12_FILE_PASSWORD_GENESIS}
 COPY project/$TEMPLATE_NAME codebase/$TEMPLATE_NAME
 COPY p12-files/${P12_FILE_NAME_GENESIS} ${P12_FILE_NAME_GENESIS}
 
-RUN rm -r codebase/$TEMPLATE_NAME/modules/l0/target
+RUN rm -r -f codebase/$TEMPLATE_NAME/modules/l0/target
 
 RUN cd codebase/$TEMPLATE_NAME && \
     sbt currencyL0/assembly
